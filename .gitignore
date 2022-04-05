@@ -1,0 +1,4 @@
+node_modules
+config/*.json
+!config/example_config.json
+dist

@@ -1,0 +1,50 @@
+{
+  "service_name": "sample",
+  "apm_name": "",
+  "server": {
+    "port": 3001
+  },
+  "redis": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "services": {},
+  "databases": {
+    "mongodb": {
+      "host": "127.0.0.1",
+      "port": 27017,
+      "db_name": ""
+    },
+    "pg": {
+      "dialect": "postgres",
+      "primary": {
+        "username": "",
+        "password": "",
+        "db_name": "",
+        "host": "127.0.0.1",
+        "port": 5432
+      },
+      "replicas": [{
+        "username": "",
+        "password": "",
+        "db_name": "",
+        "host": "127.0.0.1",
+        "port": 5432
+      }]
+    },
+    "redis": {
+      "username": "",
+      "password": "",
+      "host": "127.0.0.1",
+      "port": 6379,
+      "key_prefix": ""
+    }
+  },
+  "debug_mode": true,
+  "rateLimiterConf": {
+    "statusCode": 500,
+    "message": "ºª•¶§∞£™“…≥åΩ≈®†©∫˜˜˚˜˜√ƒ",
+    "comment": "Change error message and statusCode in case you don't want the client to know that you know that they are scraping you"
+  }
+}
