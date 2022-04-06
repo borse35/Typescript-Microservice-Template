@@ -7,6 +7,8 @@ const { logger, assertNonEmpty } = require('../helpers/utils');
 type SequelizeObj = typeof Sequelize;
 let sequelize: SequelizeObj;
 
+export const getSequelizeConnection = () => sequelize;
+
 /**
  * setting namespace so that transaction instance is automatically passed to sequelize in managed transaction block
  */
@@ -19,11 +21,14 @@ const setTransactionNameSpace = () => {
  * returns true if mongo connection has been established
  * @returns {Promise<boolean>}
  */
-const isConnected = async () => sequelize
+const isConnected = async () => !!sequelize
   && await sequelize
     .authenticate({ retry: null })
     .then(() => true)
-    .catch((e: Error) => console.log(e));
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
 
 /**
  * validates and return necessary db options

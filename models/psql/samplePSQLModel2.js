@@ -1,10 +1,9 @@
 // Example file, delete later
-
 const { Model, DataTypes } = require("sequelize");
 const { createModel } = require("./helpers/createModel");
-import SamplePSQLModel from './samplePSQLModel';
+const SamplePSQLModel = require('./samplePSQLModel');
 
-class SamplePSQLModel2 extends Model {};
+class SamplePSQLModel2 extends Model {}
 
 createModel(SamplePSQLModel2, {
   id: {
@@ -13,15 +12,16 @@ createModel(SamplePSQLModel2, {
     primaryKey: true,
     type: DataTypes.INTEGER
   },
-  sample_field_of_foreign_table: {
+  sampleFieldOfForeignTable: {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'abc',
     primaryKey: true,
-    comment: 'sample_field_of_foreign_table'
+    comment: 'sampleFieldOfForeignTable'
   },
 }, {});
 
-SamplePSQLModel2.belongsTo(SamplePSQLModel);
+// declare related models in the same file
+// SamplePSQLModel2.belongsTo(SamplePSQLModel);
 
-export default SamplePSQLModel2;
+module.exports = SamplePSQLModel2;

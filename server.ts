@@ -31,5 +31,7 @@ const { logger } = require('./helpers/utils');
   // registering event listeners
   require('./events')(server);
 
+  require('./models/psql/samplePSQLModel');
+
 
 })();

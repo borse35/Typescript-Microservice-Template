@@ -34,11 +34,9 @@ export const exitGracefully = (event: any) => {
 process
   .on('unhandledRejection', (reason, p) => {
     logger.error(reason, 'Unhandled Rejection at Promise', p);
-    exitGracefully('unhandledRejection');
   })
   .on('uncaughtException', err => {
     logger.error(err, 'Uncaught Exception thrown');
-    exitGracefully('uncaughtException');
   })
   .on('SIGINT', exitGracefully)
   .on('SIGQUIT', exitGracefully)

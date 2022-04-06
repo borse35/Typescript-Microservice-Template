@@ -1,5 +1,5 @@
-# Node.js Microservice Template
-Template to quickly bootstrap node.js microservices.
+# Typescript Microservice Template
+Template to quickly bootstrap typescript microservices.
 
 ###Included:
 ```

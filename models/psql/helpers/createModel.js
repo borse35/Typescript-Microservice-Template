@@ -1,10 +1,8 @@
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional } from 'sequelize';
 const { validateModel } = require("./validations");
-const sequelize = require('../../../connections/pg').connect();
+const { assertNonEmpty } = require("../../../helpers/utils");
 
-const _addCustomProps = (modelClass: any) => {
+const _addCustomProps = modelClass => {
   // override and add custom props here
-  return modelClass;
 };
 
 /**
@@ -14,18 +12,21 @@ const _addCustomProps = (modelClass: any) => {
  * @param options
  * @returns {*}
  */
-module.exports.createModel = (modelClass: any, attributes: object, options = {}) => {
+module.exports.createModel = (modelClass, attributes, options = {}) => {
+  const sequelize = require('../../../connections/pg').getSequelizeConnection();
+  assertNonEmpty({ sequelize });
+
   Object.assign(options, {
     sequelize, // connection instance
     paranoid: true, // only allow soft deletes
   });
 
-  // validating model
-  validateModel(modelClass, attributes, options);
-
   modelClass.init(attributes, options);
 
   _addCustomProps(modelClass);
+
+  // validating model
+  validateModel(modelClass, attributes, options);
 
   return modelClass;
 };

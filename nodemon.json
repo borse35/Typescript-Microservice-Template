@@ -1,5 +1,7 @@
 {
   "execMap": {
-    "js": "rm -r dist && tsc && node"
-  }
+    "js": "rm -rf dist && tsc && node"
+  },
+  "ext": "js,ts,json",
+  "ignore": ["dist/*"]
 }
