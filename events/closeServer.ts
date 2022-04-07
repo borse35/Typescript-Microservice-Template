@@ -24,7 +24,7 @@ export const exitGracefully = async (event: any) => {
 
   if (serverLocal) {
     await promisify(serverLocal.close);
-    logger.info('HTTP server closed\n\n');
+    logger.info('HTTP server closed');
   }
 
   process.exit(0);

@@ -1,7 +1,7 @@
 # Typescript Microservice Template
 Template to quickly bootstrap typescript microservices.
 
-###Included:
+### Included:
 ```
 1. Express application
 2. Sample config json file parsed with nconf to store secrets
@@ -29,8 +29,8 @@ Template to quickly bootstrap typescript microservices.
 10. Accessing sequelize through javascript (models, seeders, migrations). Sequelize in TS is too verbose
 ```
 
-####Postgres Migrations: Read [here](https://sequelize.org/master/manual/migrations.html)
-Examples for reference (remove later):
+### Postgres Migrations [(Reference)](https://sequelize.org/master/manual/migrations.html)
+CLI Command Examples (remove later):
 ```
 sequelize db:migrate                        Run pending migrations
 sequelize db:migrate:schema:timestamps:add  Update migration table to have timestamps
