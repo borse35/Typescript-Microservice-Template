@@ -1,5 +1,5 @@
 // sequelize-cli will use this file to get config for pg connection
-const config = require('config/index');
+const config = require('./index');
 
 // assuming postgres is being used
 const sequelizeConfig = {

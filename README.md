@@ -26,6 +26,7 @@ Template to quickly bootstrap typescript microservices.
 7. Connection attempts to databases will expire according to MAX_CONNECTION_DELAY
 8. Redis data is compressed using snappy (package) to improve storage and network throughput
 9. Sequelize auto sync has been removed to maintain behaviour consistency and experience across environments
+10. Accessing sequelize through javascript (models, seeders, migrations). Sequelize in TS is too verbose
 ```
 
 ####Postgres Migrations: Read [here](https://sequelize.org/master/manual/migrations.html)
@@ -46,8 +47,6 @@ sequelize migration:generate                Generates a new migration file      
 sequelize model:generate                    Generates a model and its migration [aliases: model:create]
 sequelize seed:generate                     Generates a new seed file           [aliases: seed:create]
 
-
 // e.g. create model and migration together
 sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string
 ```
-

@@ -1,11 +1,11 @@
 // Example file, delete later
 const { Model, DataTypes } = require("sequelize");
 const { createModel } = require("./helpers/createModel");
-const SamplePSQLModel = require('./samplePSQLModel');
 
 class SamplePSQLModel2 extends Model {}
+const modelName = 'SamplePSQLModel2';
 
-createModel(SamplePSQLModel2, {
+const attributes = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -15,13 +15,15 @@ createModel(SamplePSQLModel2, {
   sampleFieldOfForeignTable: {
     type: DataTypes.STRING,
     allowNull: false,
-    defaultValue: 'abc',
-    primaryKey: true,
+    unique: true,
     comment: 'sampleFieldOfForeignTable'
   },
-}, {});
+};
 
-// declare related models in the same file
-// SamplePSQLModel2.belongsTo(SamplePSQLModel);
+const options = {};
 
-module.exports = SamplePSQLModel2;
+const initializedModel = createModel(modelName, SamplePSQLModel2, attributes, options);
+
+module.exports = {
+  [modelName]: initializedModel,
+};

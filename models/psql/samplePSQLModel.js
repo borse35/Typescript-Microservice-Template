@@ -1,13 +1,17 @@
 // Example file, delete later
 const { Model, DataTypes, Deferrable } = require("sequelize");
 const { createModel } = require("./helpers/createModel");
-const SamplePSQLModel2 = require('./samplePSQLModel2');
+const SamplePSQLModel2 = require('./samplePSQLModel2').SamplePSQLModel2 || {};
 
 class SamplePSQLModel extends Model {
-  getField1() { return this.field1; }
+  getField1() {
+    return this.field1;
+  }
 }
 
-createModel(SamplePSQLModel, {
+const modelName = 'SamplePSQLModel';
+
+const attributes = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -22,16 +26,17 @@ createModel(SamplePSQLModel, {
     comment: 'field1'
   },
   field2: {
-    type: DataTypes.BIGINT,
-    field: 'field_2_custom_column_name',// custom column name
+    type: DataTypes.STRING, // should be same as reference
     references: {
-      model: 'SamplePSQLModel2', // foreign key
+      model: SamplePSQLModel2.tableName, // table name i.e. plural
       key: 'sampleFieldOfForeignTable',
       deferrable: Deferrable.INITIALLY_IMMEDIATE,
     },
     comment: 'field2',
   }
-}, {
+};
+
+const options = {
   indexes: [{
     fields: ['field1', 'field1'],
     where: {
@@ -40,23 +45,24 @@ createModel(SamplePSQLModel, {
       }
     }
   }]
-});
+};
 
-// SamplePSQLModel.belongsToMany(SamplePSQLModel2, { through: 'SamplePSQLModelToSamplePSQLModel2Mapping' });
+const initializedModel = createModel(modelName, SamplePSQLModel, attributes, options);
 
-SamplePSQLModel.hasOne(SamplePSQLModel2, {
-  onDelete: 'RESTRICT', // RESTRICT, CASCADE, NO ACTION, SET DEFAULT and SET NULL.
-  onUpdate: 'RESTRICT',
-  foreignKey: 'sample_psql_model_id',
-  // targetKey: '',
-  // sourceKey: '',
-  // as: '',
-  allowNull: false, // every SamplePSQLModel2 row must have a reference to SamplePSQLModel
-});
+// create association only if initialisation has been successful
+if (initializedModel.initialized) {
+  SamplePSQLModel.belongsTo(SamplePSQLModel2.model, {
+    onDelete: 'RESTRICT', // RESTRICT, CASCADE, NO ACTION, SET DEFAULT and SET NULL.
+    onUpdate: 'RESTRICT',
+    targetKey: 'sampleFieldOfForeignTable',
+    sourceKey: 'field2',
+    // as: '',
+    foreignKey: 'field2',
+    allowNull: false, // every SamplePSQLModel2 row must have a reference to SamplePSQLModel
+  });
+}
 
-(async () => {
-  console.log(await SamplePSQLModel.findOne())
-})();
-
-module.exports = SamplePSQLModel;
+module.exports = {
+  [modelName]: initializedModel,
+};
 

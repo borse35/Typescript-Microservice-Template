@@ -3,6 +3,7 @@ import { Err, Req, Res, Next, ReqHandler } from "../types/express";
 const { UserError } = require("../errors/UserError");
 const { isProduction } = require('../config');
 const pinoLogger = require('pino')();
+const chalk = require('chalk');
 
 /**
  * checks is error thrown while processing request is thrown purposefully and sends response accordingly.
@@ -20,7 +21,8 @@ const reqErrorHandler = (err: Err, req: Req, res: Res, next: Next) => {
       }
     }, err.resCode);
   } else {
-    logger.error('Error while processing request', req.originalUrl, err);
+    logger.errorStr('Error while processing request ' + req.originalUrl);
+    logger.error(err);
     next(err);
   }
 };
@@ -53,7 +55,10 @@ export const first = (arr: any[]) => arr[0];
 export const second = (arr: any[]) => arr[1];
 
 // TODO write fn wrapper to cache results
-
 export const logger = isProduction ? pinoLogger : console;
+Object.assign(logger, {
+  // printing error strings in red so that they are easier to spot on terminal
+  errorStr: (str: string) => logger.error(chalk.red(str))
+});
 
 export const promisify = require('util').promisify;

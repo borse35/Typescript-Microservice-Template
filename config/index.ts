@@ -16,7 +16,7 @@ const configReducer = (config: { [s: string]: any }, key: string) => {
 
 module.exports = {
   isProduction: env === 'production',
-  env: process.env.NODE_ENV,
+  env: process.env.NODE_ENV || 'development',
   databases: {},
   rateLimiterConf: {},
   server: {

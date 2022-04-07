@@ -1,9 +1,11 @@
 const path = require('path');
 
+const outDir = 'dist'
+
 module.exports = {
   'env': process.env.NODE_ENV,
-  'config': path.resolve('config', 'sequelize.js'),
-  'models-path': path.resolve('models', 'psql'),
-  'seeders-path': path.resolve('seeders'),
-  'migrations-path': path.resolve('migrations')
+  'config': path.resolve(outDir, 'config', 'sequelize.js'),
+  'models-path': path.resolve(outDir, 'models', 'psql'),
+  'seeders-path': path.resolve(outDir, 'seeders'),
+  'migrations-path': path.resolve(outDir, 'migrations')
 };

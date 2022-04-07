@@ -6,9 +6,9 @@ const redis = require("./redis");
 const { exitGracefully } = require("../events/closeServer");
 const { MAX_CONNECTION_DELAY } = require("../constants");
 
-const catchPromise = (msg: string) => (err: Error) => {
+const catchPromise = (msg: string) => async (err: Error) => {
   console.log(err);
-  exitGracefully(msg);
+  await exitGracefully(msg);
 };
 
 /**

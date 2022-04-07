@@ -1,3 +1,5 @@
+import { migrationsArePending } from "../helpers/migrations";
+import { exitGracefully } from "../events/closeServer";
 const { Sequelize, Transaction } = require('sequelize');
 const cls = require('cls-hooked');
 
@@ -58,15 +60,23 @@ module.exports.getDbOptions = getDbOptions;
  * @returns {SequelizeObj}
  */
 const createConnection = async (pgConfig: { replicas: any; primary: object; dialect: any; }): Promise<SequelizeObj> => {
-  const getReadReplicaConfig = (dbConfig: object) => getDbOptions(dbConfig, { throwError: false });
+  // const getReadReplicaConfig = (dbConfig: object) => getDbOptions(dbConfig, { throwError: false });
+
+  const { host, port, username, password, db_name: database } = (pgConfig.primary as any);
+  assertNonEmpty({ host, port, username, password, database });
 
   sequelize = new Sequelize({
     // operatorsAliases: PSQL_OP_ALIASES, // simpler aliases for sequelize operators
     isolationLevel: Transaction.ISOLATION_LEVELS.READ_COMMITTED, // transaction isolation level
-    replication: {
-      read: (pgConfig.replicas || []).map(getReadReplicaConfig).filter(Boolean), // read replicas
-      write: getDbOptions(pgConfig.primary) // primary
-    },
+    // replication: {
+    //   read: (pgConfig.replicas || []).map(getReadReplicaConfig).filter(Boolean), // read replicas
+    //   write: getDbOptions(pgConfig.primary) // primary
+    // },
+    host,
+    port,
+    username,
+    password,
+    database,
     dialect: pgConfig.dialect,
   });
   setTransactionNameSpace();
@@ -88,6 +98,13 @@ export const connect = async (): Promise<SequelizeObj> => {
   await createConnection(pgConfig);
 
   logger.info('Connected to Postgres');
+
+  if (await migrationsArePending()) {
+    logger.errorStr('Some migrations are pending');
+    await exitGracefully('MigrationPending');
+    // TODO auto run pending migrations with confirmation from cmd line input
+  }
+
   return sequelize;
 };
 
