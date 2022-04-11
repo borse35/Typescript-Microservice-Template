@@ -42,7 +42,7 @@ const finalCommand = `${prependedCommand} npx sequelize-cli ${command} ${extraAr
 
 try {
   console.log('Running::', finalCommand)
-  const res = execSync(finalCommand, { encoding: 'utf-8' });
+  const res = execSync(finalCommand, { encoding: 'utf-8', stdio: 'inherit' });
   console.log(res);
 } catch (e) {
   console.log('Command failed', finalCommand);
