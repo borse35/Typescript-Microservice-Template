@@ -10,6 +10,44 @@ const _addCustomProps = modelClass => {
 // paranoid tables, allowing only soft deletes
 const PARANOID = true;
 
+// common attribute options
+// adding this because type annotations can't be used in js file
+module.exports.attr = ({
+                         type,
+                         unique,
+                         primaryKey,
+                         autoIncrement,
+                         autoIncrementIdentity,
+                         comment,
+                         references,
+                         onUpdate,
+                         onDelete,
+                         validate,
+                         values,
+                         allowNull = true,
+                         field,
+                         defaultValue,
+                         get,
+                         set
+                       }) => ({
+  type,
+  unique,
+  primaryKey,
+  autoIncrement,
+  autoIncrementIdentity,
+  comment,
+  references,
+  onUpdate,
+  onDelete,
+  validate,
+  values,
+  allowNull,
+  field,
+  defaultValue,
+  get,
+  set
+});
+
 const implicitAttributes = {
   id: {
     allowNull: false,

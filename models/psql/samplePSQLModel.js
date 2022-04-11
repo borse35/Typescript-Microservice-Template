@@ -1,6 +1,6 @@
 // Example file, delete later
 const { Model, DataTypes, Deferrable } = require("sequelize");
-const { createModel } = require("./helpers/createModel");
+const { createModel, attr } = require("./helpers/createModel");
 const SamplePSQLModel2 = require('./samplePSQLModel2').SamplePSQLModel2 || {};
 
 class SamplePSQLModel extends Model {
@@ -12,14 +12,14 @@ class SamplePSQLModel extends Model {
 const modelName = 'SamplePSQLModel';
 
 const attributes = {
-  field1: {
+  field1: attr({
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: 'abc',
     primaryKey: true,
     comment: 'field1'
-  },
-  field2: {
+  }),
+  field2: attr({
     type: DataTypes.STRING, // should be same as reference
     references: {
       model: SamplePSQLModel2.tableName, // table name i.e. plural
@@ -27,7 +27,7 @@ const attributes = {
       deferrable: Deferrable.INITIALLY_IMMEDIATE,
     },
     comment: 'field2',
-  }
+  })
 };
 
 const options = {

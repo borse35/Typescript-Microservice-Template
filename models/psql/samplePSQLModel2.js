@@ -1,17 +1,17 @@
 // Example file, delete later
 const { Model, DataTypes } = require("sequelize");
-const { createModel } = require("./helpers/createModel");
+const { createModel, attr } = require("./helpers/createModel");
 
 class SamplePSQLModel2 extends Model {}
 const modelName = 'SamplePSQLModel2';
 
 const attributes = {
-  sampleFieldOfForeignTable: {
+  sampleFieldOfForeignTable: attr({
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
     comment: 'sampleFieldOfForeignTable'
-  },
+  }),
 };
 
 const options = {};
