@@ -1,8 +1,7 @@
 'use strict';
-// Example file, delete later
 
-export = {
-  async up (_queryInterface: any, _Sequelize: any) {
+module.exports = {
+  async up (queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -11,10 +10,10 @@ export = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
   },
 
-  async down (_queryInterface: any, _Sequelize: any) {
+  async down (queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *

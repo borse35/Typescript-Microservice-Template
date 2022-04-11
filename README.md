@@ -30,23 +30,29 @@ Template to quickly bootstrap typescript microservices.
 ```
 
 ### Postgres Migrations [(Reference)](https://sequelize.org/master/manual/migrations.html)
-CLI Command Examples (remove later):
+Migrations and seed files need to be generated in /migrations and /seeders folder respectively.
+But they must be run through dist/migrations/* and dist/seeders/* (we need modules written in ts).
+Therefore a commandline helper sqlize.js is added to save effort of mentioning overridden paths everytime.
+
+Simply replace "npx sequelize-cli" or "sequelize" with "node sqlize.js" 
+
+CLI Command Examples:
 ```
-sequelize db:migrate                        Run pending migrations
-sequelize db:migrate:schema:timestamps:add  Update migration table to have timestamps
-sequelize db:migrate:status                 List the status of all migrations
-sequelize db:migrate:undo                   Reverts a migration
-sequelize db:migrate:undo:all               Revert all migrations ran
-sequelize db:seed                           Run specified seeder
-sequelize db:seed:undo                      Deletes data from the database
-sequelize db:seed:all                       Run every seeder
-sequelize db:seed:undo:all                  Deletes data from the database
-sequelize db:create                         Create database specified by configuration
-sequelize db:drop                           Drop database specified by configuration
-sequelize migration:generate                Generates a new migration file      [aliases: migration:create]
-sequelize model:generate                    Generates a model and its migration [aliases: model:create]
-sequelize seed:generate                     Generates a new seed file           [aliases: seed:create]
+node sqlize.js db:migrate                        Run pending migrations
+node sqlize.js db:migrate:schema:timestamps:add  Update migration table to have timestamps
+node sqlize.js db:migrate:status                 List the status of all migrations
+node sqlize.js db:migrate:undo                   Reverts a migration
+node sqlize.js db:migrate:undo:all               Revert all migrations ran
+node sqlize.js db:seed                           Run specified seeder
+node sqlize.js db:seed:undo                      Deletes data from the database
+node sqlize.js db:seed:all                       Run every seeder
+node sqlize.js db:seed:undo:all                  Deletes data from the database
+node sqlize.js db:create                         Create database specified by configuration
+node sqlize.js db:drop                           Drop database specified by configuration
+node sqlize.js migration:generate                Generates a new migration file      [aliases: migration:create]
+node sqlize.js model:generate                    Generates a model and its migration [aliases: model:create]
+node sqlize.js seed:generate                     Generates a new seed file           [aliases: seed:create]
 
 // e.g. create model and migration together
-sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string
+node sqlize.js model:generate --name User --attributes firstName:string,lastName:string,email:string
 ```
