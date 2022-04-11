@@ -6,12 +6,6 @@ class SamplePSQLModel2 extends Model {}
 const modelName = 'SamplePSQLModel2';
 
 const attributes = {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER
-  },
   sampleFieldOfForeignTable: {
     type: DataTypes.STRING,
     allowNull: false,

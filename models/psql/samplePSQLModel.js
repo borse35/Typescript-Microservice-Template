@@ -12,12 +12,6 @@ class SamplePSQLModel extends Model {
 const modelName = 'SamplePSQLModel';
 
 const attributes = {
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: DataTypes.INTEGER
-  },
   field1: {
     type: DataTypes.STRING,
     allowNull: false,

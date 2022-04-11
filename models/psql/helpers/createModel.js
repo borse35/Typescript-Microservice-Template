@@ -1,7 +1,7 @@
 const { validateModel } = require("./validations");
 const { assertNonEmpty, logger } = require("../../../helpers/utils");
 const inflection = require('inflection');
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
 const _addCustomProps = modelClass => {
   // override and add custom props here
@@ -11,6 +11,12 @@ const _addCustomProps = modelClass => {
 const PARANOID = true;
 
 const implicitAttributes = {
+  id: {
+    allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataTypes.INTEGER
+  },
   createdAt: {
     allowNull: false,
     type: Sequelize.DATE
