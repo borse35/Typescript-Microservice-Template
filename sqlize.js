@@ -38,7 +38,7 @@ if (fileCreationCommands.includes(command)) {
   prependedCommand = 'rm -r dist && tsc &&'
 }
 
-const finalCommand = `${prependedCommand} npx sequelize-cli ${command} ${extraArg} ${args.join(' ')}`;
+const finalCommand = `${prependedCommand} npx sequelize-cli ${command} ${extraArg} ${args.join(' ')} --debug`;
 
 try {
   console.log('Running::', finalCommand)
